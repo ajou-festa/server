@@ -9,13 +9,12 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import java.time.LocalDateTime;
 
+@Document(collection = "shows")
 @Builder()
-public class Show {
-
+public class DaySchedule {
     @Id
-    private final Long id;
-    private final String showName;
-    private final String teamName;
-    private final LocalDateTime startTime;
-    private final String status;
+    private String id;
+    private int day;
+    private List<Show> shows;
+
 }

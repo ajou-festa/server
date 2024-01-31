@@ -6,7 +6,7 @@ import java.util.List;
 import jakarta.validation.constraints.*;
 
 @Data
-@Builder
+@Builder()
 public class ShowDto {
     private Long id;
 

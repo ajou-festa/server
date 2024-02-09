@@ -2,7 +2,9 @@ package com.ajoufesta.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.ajoufesta.service.ShowService;
-import com.ajoufesta.domain.DaySchedule;
+import com.ajoufesta.domain.DayShows;
+import com.ajoufesta.dto.ShowDto;
+import com.ajoufesta.dto.UpdateShowTurnDto;
 
 import java.util.List;
 
@@ -10,22 +12,20 @@ import java.util.List;
 @RequestMapping("/v1/shows")
 public class ShowController {
     @Autowired
-    private ShowService service;
-
-    @PostMapping
-    public DaySchedule addDaySchedule(@RequestBody DaySchedule daySchedule) {
-        return service.saveDaySchedule(daySchedule);
-    }
+    private ShowService showService;
 
     @GetMapping
-    public List<DaySchedule> getAllDaySchedules() {
-        return service.getAllDaySchedules();
+    public List<ShowDto> getDayShowsByDay(@RequestParam(required = false) Integer day) {
+        return showService.getDayShowsByDay(day);
     }
 
-    @GetMapping("/{id}")
-    public DaySchedule getDayScheduleById(@PathVariable String id) {
-        return service.getDayScheduleById(id).orElse(null);
+    @PostMapping("/manager/show-turn")
+    public Integer updateShowTurn(@RequestBody UpdateShowTurnDto nowShow) {
+        return showService.updateShowTurn(nowShow);
     }
 
-    // 추가 엔드포인트를 구현할 수 있습니다.
+    @PostMapping("/admin")
+    public DayShows addDaySchedule(@RequestBody DayShows dayShows) {
+        return showService.saveDayShows(dayShows);
+    }
 }

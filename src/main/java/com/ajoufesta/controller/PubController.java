@@ -1,28 +1,26 @@
-// package com.ajoufesta.controller;
+package com.ajoufesta.controller;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
-// import com.ajoufesta.dto.ShowDto;
-// import com.ajoufesta.service.ShowService;
-// import jakarta.validation.Valid;
-// import jakarta.validation.constraints.Pattern;
-// import org.springframework.beans.factory.annotation.Autowired;
-// import org.springframework.web.bind.annotation.*;
+import com.ajoufesta.service.PubService;
+import com.ajoufesta.domain.DayPubs;
+import com.ajoufesta.dto.PubDto;
 
-// import java.util.List;
+import java.util.List;
 
-// @RestController
-// @RequestMapping("/v1/pubs")
-// public class PubController {
+@RestController
+@RequestMapping("/v1/pubs")
+public class PubController {
+    @Autowired
+    private PubService pubService;
 
-//     @Autowired
-//     private ShowService showService;
+    @GetMapping
+    public List<PubDto> getDayBoothesByDay(@RequestParam(required = false) Integer day,@RequestParam(required = false) String section) {
+        return pubService.getDayPubsByDayAndSection(day,section);
+    }
 
-//     @GetMapping()
-//     public List<ShowDto> getPubsByDay(@RequestParam @Pattern(regexp = "day1|day2|day3|today") @Valid String day) {
-//         return showService.getShowsByDay(day);
-//     }
-
-//     @GetMapping("/{pubId}")
-//     public List<ShowDto> getPubsById(@PathVariable @Valid String boothId) {
-//         return showService.getShowsByDay(boothId);
-//     }
-// }
+    @PostMapping("/admin")
+    public DayPubs addDaySchedule(@RequestBody DayPubs dayPubs) {
+        return pubService.saveDayPubs(dayPubs);
+    }
+}

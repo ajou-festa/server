@@ -2,19 +2,16 @@ package com.ajoufesta.domain;
 
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.util.List;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import java.time.LocalDateTime;
-
-@Document(collection = "shows")
+@Data
+@Document(collection = "pubs")
 @Builder()
-public class DaySchedule {
+public class DayPubs {
     @Id
-    private String id;
     private int day;
-    private List<Show> shows;
+    private List<Pub> pubs;
 
 }

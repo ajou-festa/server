@@ -1,4 +1,5 @@
 package com.ajoufesta.controller;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,12 +16,18 @@ public class PubController {
     private PubService pubService;
 
     @GetMapping
-    public List<PubDto> getDayBoothesByDay(@RequestParam(required = false) Integer day,@RequestParam(required = false) String section) {
-        return pubService.getDayPubsByDayAndSection(day,section);
+    public List<PubDto> getDayBoothesByDay(@RequestParam(required = false) Integer day,
+            @RequestParam(required = false) String section) {
+        return pubService.getDayPubsByDayAndSection(day, section);
     }
 
     @PostMapping("/admin")
     public DayPubs addDaySchedule(@RequestBody DayPubs dayPubs) {
         return pubService.saveDayPubs(dayPubs);
+    }
+
+    @PostMapping("/manager/{pubId}/info")
+    public PubDto postMethodName(@PathVariable String pubId, @RequestBody PubDto pubDto) {
+        return pubService.updatePubInfo(pubId, pubDto);
     }
 }

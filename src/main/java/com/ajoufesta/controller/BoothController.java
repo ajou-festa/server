@@ -1,4 +1,5 @@
 package com.ajoufesta.controller;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,12 +16,19 @@ public class BoothController {
     private BoothService boothService;
 
     @GetMapping
-    public List<BoothDto> getDayBoothesByDay(@RequestParam(required = false) Integer day,@RequestParam(required = false) String section) {
-        return boothService.getDayBoothesByDayAndSection(day,section);
+    public List<BoothDto> getDayBoothesByDay(@RequestParam(required = false) Integer day,
+            @RequestParam(required = false) String section) {
+        return boothService.getDayBoothesByDayAndSection(day, section);
     }
 
     @PostMapping("/admin")
     public DayBoothes addDaySchedule(@RequestBody DayBoothes dayBoothes) {
         return boothService.saveDayBoothes(dayBoothes);
     }
+
+    @PostMapping("/manager/{boothId}/info")
+    public BoothDto updateBooth(@PathVariable String boothId, @RequestBody BoothDto boothDto) {
+        return boothService.updateBoothInfo(boothId, boothDto);
+    }
+
 }

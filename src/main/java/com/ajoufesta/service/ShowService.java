@@ -25,13 +25,11 @@ public class ShowService {
     }
 
     public Integer updateShowTurn(UpdateShowTurnDto nowShow){
-        // 특정 day에 해당하는 DayShows 객체 찾기
-         DayShows dayShows = showDao.findByDay(nowShow.getDay()).orElseThrow();
+        DayShows dayShows = showDao.findByDay(nowShow.getDay()).orElseThrow();
 
-        // Show의 상태를 inProgress로 업데이트
         dayShows.updateShowStatus(nowShow.getShowId());
-
-        // 변경 사항 저장
+        dayShows.setStartTime(nowShow.getStartTime());
+      
         return showDao.save(dayShows).getDay();
     }
 

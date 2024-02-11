@@ -13,5 +13,4 @@ public class DayBoothes {
     @Id
     private int day;
     private List<Booth> boothes;
-
 }

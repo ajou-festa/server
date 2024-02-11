@@ -13,7 +13,8 @@ public class DayShows {
     @Id
     private int day;
     private List<Show> shows;
-
+    private String startTime;
+    
     public void updateShowStatus(int showId) {
         if(showId!=0){
             shows.get(showId-1).setStatus(ShowStatus.DONE);

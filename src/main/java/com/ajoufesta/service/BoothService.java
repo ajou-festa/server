@@ -4,15 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ajoufesta.dao.BoothDao;
-import com.ajoufesta.dao.BoothDao;
-import com.ajoufesta.domain.Booth;
-import com.ajoufesta.domain.DayBoothes;
-import com.ajoufesta.domain.DayBoothes;
-import com.ajoufesta.domain.Booth;
-import com.ajoufesta.dto.BoothDto;
-import com.ajoufesta.dto.BoothDto;
 
-import java.time.format.DateTimeFormatter;
+import com.ajoufesta.domain.Booth;
+import com.ajoufesta.domain.DayBoothes;
+
+import com.ajoufesta.dto.BoothDto;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -30,19 +26,41 @@ public class BoothService {
     public List<BoothDto> getDayBoothesByDayAndSection(Integer day, String section) {
         Optional<DayBoothes> optionalDayBoothes;
         if (day == null) {
-            optionalDayBoothes =  boothDao.findByDay(1);
+            optionalDayBoothes = boothDao.findByDay(1);
         } else {
-            optionalDayBoothes =  boothDao.findByDay(day);
+            optionalDayBoothes = boothDao.findByDay(day);
         }
         return getBoothesFromDayBoothesBySection(optionalDayBoothes, section);
     }
 
-    private List<BoothDto> getBoothesFromDayBoothesBySection(Optional<DayBoothes> optionalDayBoothes, String section){
+    public BoothDto updateBoothInfo(String id, BoothDto boothDto) {
+        DayBoothes dayBoothes = boothDao.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("잘못된 ID: " + id));
+
+        dayBoothes.getBoothes().stream()
+                .filter(booth -> booth.getBoothId().equals(boothDto.getBoothId()))
+                .findFirst()
+                .ifPresent(booth -> {
+                    booth.setBoothName(boothDto.getBoothName());
+                    booth.setTeamName(boothDto.getTeamName());
+                    booth.setOpenTime(boothDto.getOpenTime());
+                    booth.setCloseTime(boothDto.getCloseTime());
+                    booth.setDescription(boothDto.getDescription());
+                    booth.setLink(boothDto.getLink());
+                    booth.setLinkIconId(boothDto.getLinkIconId());
+                    booth.setBoothLocation(boothDto.getBoothLocation());
+                });
+        boothDao.save(dayBoothes);
+
+        return boothDto;
+    }
+
+    private List<BoothDto> getBoothesFromDayBoothesBySection(Optional<DayBoothes> optionalDayBoothes, String section) {
         List<Booth> boothes = optionalDayBoothes.map(DayBoothes::getBoothes).orElse(Collections.emptyList());
-        if(section!=null){
-            boothes = filterBySection(boothes,section);
+        if (section != null) {
+            boothes = filterBySection(boothes, section);
         }
-        
+
         return this.convertToBoothDtoList(boothes);
     }
 

@@ -25,19 +25,42 @@ public class PubService {
     public List<PubDto> getDayPubsByDayAndSection(Integer day, String section) {
         Optional<DayPubs> optionalDayPubs;
         if (day == null) {
-            optionalDayPubs =  pubDao.findByDay(1);
+            optionalDayPubs = pubDao.findByDay(1);
         } else {
-            optionalDayPubs =  pubDao.findByDay(day);
+            optionalDayPubs = pubDao.findByDay(day);
         }
         return getPubsFromDayPubsBySection(optionalDayPubs, section);
     }
 
-    private List<PubDto> getPubsFromDayPubsBySection(Optional<DayPubs> optionalDayPubs, String section){
+    public PubDto updatePubInfo(String pubId, PubDto pubDto) {
+        DayPubs dayPubs = pubDao.findById(pubId)
+                .orElseThrow(() -> new IllegalArgumentException("Pub with id " + pubId + " not found"));
+
+        dayPubs.getPubs().stream()
+                .filter(pub -> pub.getPubId().equals(Long.parseLong(pubId)))
+                .findFirst()
+                .ifPresent(pub -> {
+                    pub.setPubName(pubDto.getPubName());
+                    pub.setTeamName(pubDto.getTeamName());
+                    pub.setPhoneNum(pubDto.getPhoneNum());
+                    pub.setDescription(pubDto.getDescription());
+                    pub.setMenuImageSrc(pubDto.getMenuImageSrc());
+                    pub.setLink(pubDto.getLink());
+                    pub.setLinkIconId(pubDto.getLinkIconId());
+                    pub.setPubLocation(pubDto.getPubLocation());
+                });
+
+        pubDao.save(dayPubs);
+
+        return pubDto;
+    }
+
+    private List<PubDto> getPubsFromDayPubsBySection(Optional<DayPubs> optionalDayPubs, String section) {
         List<Pub> pubs = optionalDayPubs.map(DayPubs::getPubs).orElse(Collections.emptyList());
-        if(section!=null){
-            pubs = filterBySection(pubs,section);
+        if (section != null) {
+            pubs = filterBySection(pubs, section);
         }
-        
+
         return this.convertToPubDtoList(pubs);
     }
 

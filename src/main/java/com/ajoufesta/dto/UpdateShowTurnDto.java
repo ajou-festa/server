@@ -8,4 +8,5 @@ import lombok.Data;
 public class UpdateShowTurnDto {
     private int day;
     private int showId;
+    private String startTime;
 }

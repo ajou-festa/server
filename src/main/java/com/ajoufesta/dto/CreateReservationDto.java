@@ -7,7 +7,7 @@ import lombok.Data;
 @Builder()
 public class CreateReservationDto {
     
-    private Long pubId;
+    private String pubId;
     private String name;
     private String peopleNum;
     private String phoneNumber;

@@ -10,7 +10,7 @@ import lombok.Data;
 public class Booth {
     
     @Id
-    private Long boothId;
+    private String boothId;
     private String boothName;
     private String teamName;
     private String openTime;

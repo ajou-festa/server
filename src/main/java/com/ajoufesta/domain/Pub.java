@@ -10,7 +10,7 @@ import lombok.Data;
 public class Pub {
     
     @Id
-    private Long pubId;
+    private String pubId;
     private String pubName;
     private String teamName;
     private String phoneNum;

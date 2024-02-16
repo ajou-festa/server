@@ -1,5 +1,6 @@
 package com.ajoufesta.controller;
 
+import com.ajoufesta.dto.CancelReservationDto;
 import com.ajoufesta.dto.CreateReservationDto;
 import com.ajoufesta.dto.GetReservationDto;
 import com.ajoufesta.service.ReservationService;
@@ -25,8 +26,21 @@ public class ReservationController {
 
     @GetMapping("/my-reservation")
     public ResponseEntity<List<GetReservationDto>> getReservationByPhoneNumber(@RequestParam(required = false) String phone) {
-        List<GetReservationDto> reservation = reservationService.findReservationsByPhoneNumber(phone);
+        List<GetReservationDto> reservation = reservationService.getReservationsByPhoneNumber(phone);
 
         return ResponseEntity.ok(reservation);
     }
+
+    @GetMapping("/manager/:pubId")
+    public ResponseEntity<List<GetReservationDto>> getReservationByPubId(@PathVariable String pubId) {
+        List<GetReservationDto> reservation = reservationService.getReservationByPubId(pubId);
+
+        return ResponseEntity.ok(reservation);
+    }
+
+    @PostMapping("/cancel")
+    public String cancelReservation(@RequestBody CancelReservationDto cancelReservationDto) {
+        return reservationService.cancelReservation(cancelReservationDto);
+    }
+
 }

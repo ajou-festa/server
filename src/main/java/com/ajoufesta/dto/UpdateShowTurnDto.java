@@ -7,6 +7,6 @@ import lombok.Data;
 @Builder()
 public class UpdateShowTurnDto {
     private int day;
-    private int showId;
+    private Integer showId;
     private String startTime;
 }

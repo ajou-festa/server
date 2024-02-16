@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 public class Show {
 
     @Id
-    private final Long id;
+    private final String id;
     private final String showName;
     private final String teamName;
     private final LocalDateTime startTime;

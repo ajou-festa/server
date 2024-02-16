@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 @Builder()
 public class ShowDto {
-    private Long id;
+    private String id;
 
     private String showName;
 

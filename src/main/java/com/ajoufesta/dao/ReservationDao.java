@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface ReservationDao extends MongoRepository<Reservation, String> {
     List<Reservation> findByPhoneNumber(String phoneNumber);
+
+    List<Reservation> findByPubId(String pubId);
 }

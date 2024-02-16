@@ -2,6 +2,7 @@ package com.ajoufesta.service;
 
 import com.ajoufesta.dao.ReservationDao;
 import com.ajoufesta.domain.Reservation;
+import com.ajoufesta.dto.CancelReservationDto;
 import com.ajoufesta.dto.CreateReservationDto;
 import com.ajoufesta.dto.GetReservationDto;
 
@@ -11,6 +12,7 @@ import java.util.stream.Collectors;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ReservationService {
@@ -24,13 +26,36 @@ public class ReservationService {
         return savedReservation.getReservationId();
     }
 
-    public List<GetReservationDto> findReservationsByPhoneNumber(String phoneNumber) {
+    public List<GetReservationDto> getReservationsByPhoneNumber(String phoneNumber) {
         List<GetReservationDto> reservationDtos = reservationDao.findByPhoneNumber(phoneNumber)
                 .stream()
                 .map(this::convertToGetReservationDto)
                 .collect(Collectors.toList());
 
         return reservationDtos;
+    }
+
+    public List<GetReservationDto> getReservationByPubId (String pubId) {
+        List<GetReservationDto> reservationDtos = reservationDao.findByPubId(pubId)
+                .stream()
+                .map(this::convertToGetReservationDto)
+                .collect(Collectors.toList());
+
+        return reservationDtos;
+    }
+
+    public String cancelReservation(CancelReservationDto cancelReservationDto) {
+       Optional<Reservation> optionalReservation = reservationDao.findById(cancelReservationDto.getReservationId());
+        if (optionalReservation.isPresent()) {
+            Reservation reservation = optionalReservation.get();
+            // "cancel"로 상태 변경
+            reservation.setStatus("cancel");
+            // 변경된 예약 업데이트
+            reservationDao.save(reservation);
+        } else {
+            throw new IllegalArgumentException("Reservation not found with id: " + cancelReservationDto.getReservationId());
+        }
+        return cancelReservationDto.getReservationId();
     }
 
     private Reservation convertToDomain(CreateReservationDto reservationDto) {

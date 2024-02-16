@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 @Builder()
 public class PubDto {
-    private  Long pubId;
+    private  String pubId;
     private  String pubName;
     private  String teamName;
     private  String phoneNum;

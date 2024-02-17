@@ -1,0 +1,26 @@
+[
+  {
+    "code": "BA01",
+    "name": "이름1",
+    "type": "booth",
+    "location": "A01"
+  },
+  {
+    "code": "BA02",
+    "name": "이름2",
+    "type": "booth",
+    "location": "A02"
+  },
+  {
+    "code": "BB01",
+    "name": "이름3",
+    "type": "booth",
+    "location": "B01"
+  },
+  {
+    "code": "PA01",
+    "name": "이름4",
+    "type": "pub",
+    "location": "A01"
+  }
+]

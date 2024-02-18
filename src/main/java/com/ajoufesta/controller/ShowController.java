@@ -2,7 +2,7 @@ package com.ajoufesta.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.ajoufesta.service.ShowService;
-import com.ajoufesta.domain.DayShows;
+import org.springframework.http.ResponseEntity;
 import com.ajoufesta.dto.AddShowsDto;
 import com.ajoufesta.dto.ShowDto;
 import com.ajoufesta.dto.UpdateShowTurnDto;
@@ -16,18 +16,18 @@ public class ShowController {
     private ShowService showService;
 
     @GetMapping
-    public List<ShowDto> getDayShowsByDay(@RequestParam(required = false) Integer day) {
-        return showService.getDayShowsByDay(day);
+    public ResponseEntity<List<ShowDto>> getDayShowsByDay(@RequestParam(required = false) Integer day) {
+        return ResponseEntity.ok(showService.getDayShowsByDay(day));
     }
 
     @PostMapping("/manager/show-turn")
-    public Integer updateShowTurn(@RequestBody UpdateShowTurnDto nowShow) {
-        return showService.updateShowTurn(nowShow);
+    public ResponseEntity<Integer> updateShowTurn(@RequestBody UpdateShowTurnDto nowShow) {
+        return ResponseEntity.ok(showService.updateShowTurn(nowShow));
     }
 
     @PostMapping("/admin")
-    public String addShows(@RequestBody AddShowsDto dayShows) {
-        return showService.addShows(dayShows);
+    public ResponseEntity<String> addShows(@RequestBody AddShowsDto dayShows) {
+        return ResponseEntity.ok(showService.addShows(dayShows));
     }
 
 }

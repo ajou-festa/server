@@ -39,8 +39,8 @@ public class ReservationController {
     }
 
     @PostMapping("/cancel")
-    public String cancelReservation(@RequestBody CancelReservationDto cancelReservationDto) {
-        return reservationService.cancelReservation(cancelReservationDto);
+    public ResponseEntity<String> cancelReservation(@RequestBody CancelReservationDto cancelReservationDto) {
+        return ResponseEntity.ok(reservationService.cancelReservation(cancelReservationDto));
     }
 
 }

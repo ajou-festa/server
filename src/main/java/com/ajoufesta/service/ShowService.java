@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.ajoufesta.dao.ShowDao;
 import com.ajoufesta.domain.DayShows;
 import com.ajoufesta.domain.Show;
+import com.ajoufesta.dto.AddShowsDto;
 import com.ajoufesta.dto.ShowDto;
 import com.ajoufesta.dto.UpdateShowTurnDto;
 
@@ -20,15 +21,17 @@ public class ShowService {
     @Autowired
     private ShowDao showDao;
 
-    public DayShows saveDayShows(DayShows dayShows) {
-        return showDao.save(dayShows);
+    public String addShows(AddShowsDto dayShows) {
+        for(DayShows dayShow : dayShows.getShowsByDay()){
+            showDao.save(dayShow);
+        }
+        return "success";
     }
 
     public Integer updateShowTurn(UpdateShowTurnDto nowShow){
         DayShows dayShows = showDao.findByDay(nowShow.getDay()).orElseThrow();
 
         dayShows.updateShowStatus(nowShow.getShowId());
-        dayShows.setStartTime(nowShow.getStartTime());
       
         return showDao.save(dayShows).getDay();
     }

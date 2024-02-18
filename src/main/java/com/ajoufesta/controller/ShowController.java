@@ -3,6 +3,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.ajoufesta.service.ShowService;
 import com.ajoufesta.domain.DayShows;
+import com.ajoufesta.dto.AddShowsDto;
 import com.ajoufesta.dto.ShowDto;
 import com.ajoufesta.dto.UpdateShowTurnDto;
 
@@ -25,8 +26,8 @@ public class ShowController {
     }
 
     @PostMapping("/admin")
-    public DayShows addDaySchedule(@RequestBody DayShows dayShows) {
-        return showService.saveDayShows(dayShows);
+    public String addShows(@RequestBody AddShowsDto dayShows) {
+        return showService.addShows(dayShows);
     }
 
 }

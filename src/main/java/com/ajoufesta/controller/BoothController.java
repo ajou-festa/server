@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.ajoufesta.service.BoothService;
 import com.ajoufesta.domain.DayBoothes;
+import com.ajoufesta.dto.AddBoothesDto;
 import com.ajoufesta.dto.BoothDto;
 
 import java.util.List;
@@ -22,8 +23,8 @@ public class BoothController {
     }
 
     @PostMapping("/admin")
-    public DayBoothes addDaySchedule(@RequestBody DayBoothes dayBoothes) {
-        return boothService.saveDayBoothes(dayBoothes);
+    public String addBoothes(@RequestBody AddBoothesDto dayBoothes) {
+        return boothService.addBoothes(dayBoothes);
     }
 
     @PostMapping("/manager/{boothId}/info")

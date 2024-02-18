@@ -1,13 +1,14 @@
 package com.ajoufesta.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Service;
 
 import com.ajoufesta.dao.BoothDao;
 
 import com.ajoufesta.domain.Booth;
 import com.ajoufesta.domain.DayBoothes;
-
+import com.ajoufesta.dto.AddBoothesDto;
 import com.ajoufesta.dto.BoothDto;
 import java.util.Collections;
 import java.util.List;
@@ -18,6 +19,13 @@ import java.util.stream.Collectors;
 public class BoothService {
     @Autowired
     private BoothDao boothDao;
+
+    public String addBoothes(AddBoothesDto dayBoothes) {
+        for(DayBoothes dayBooth : dayBoothes.getBoothessByDay()){
+            boothDao.save(dayBooth);
+        }
+        return "success";
+    }
 
     public DayBoothes saveDayBoothes(DayBoothes dayBoothes) {
         return boothDao.save(dayBoothes);

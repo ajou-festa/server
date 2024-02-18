@@ -1,11 +1,13 @@
 package com.ajoufesta.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Service;
 
 import com.ajoufesta.dao.PubDao;
 import com.ajoufesta.domain.Pub;
 import com.ajoufesta.domain.DayPubs;
+import com.ajoufesta.dto.AddPubsDto;
 import com.ajoufesta.dto.PubDto;
 
 import java.util.Collections;
@@ -18,8 +20,11 @@ public class PubService {
     @Autowired
     private PubDao pubDao;
 
-    public DayPubs saveDayPubs(DayPubs dayPubs) {
-        return pubDao.save(dayPubs);
+    public String addDaySchedule(AddPubsDto dayPubs) {
+        for(DayPubs dayPub : dayPubs.getPubsByDay()){
+        pubDao.save(dayPub);
+        }
+        return "success";
     }
 
     public List<PubDto> getDayPubsByDayAndSection(Integer day, String section) {

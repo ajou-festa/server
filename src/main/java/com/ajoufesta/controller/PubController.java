@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.ajoufesta.service.PubService;
 import com.ajoufesta.domain.DayPubs;
+import com.ajoufesta.dto.AddPubsDto;
 import com.ajoufesta.dto.PubDto;
 
 import java.util.List;
@@ -22,8 +23,8 @@ public class PubController {
     }
 
     @PostMapping("/admin")
-    public DayPubs addDaySchedule(@RequestBody DayPubs dayPubs) {
-        return pubService.saveDayPubs(dayPubs);
+    public String addDaySchedule(@RequestBody AddPubsDto dayPubs) {
+        return pubService.addDaySchedule(dayPubs);
     }
 
     @PostMapping("/manager/{pubId}/info")

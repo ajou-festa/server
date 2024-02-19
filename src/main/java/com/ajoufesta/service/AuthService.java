@@ -23,9 +23,7 @@ public class AuthService {
     }
 
     public TokenInfo getTokenInfo(CodeDto codeDto) {
-
         JSONObject jsonObject = SecurityUtil.findByCode(codeDto.getCode());
-        System.out.println(jsonObject);
         Collection<? extends GrantedAuthority> authorities;
         if(jsonObject == null) {
             return null;
@@ -38,8 +36,7 @@ public class AuthService {
                 authorities = Arrays.asList(new SimpleGrantedAuthority("ROLE_PUB"));
             }
         }
-        Authentication authentication = new UsernamePasswordAuthenticationToken(jsonObject.get("name"), null, authorities);
-        System.out.println(authentication);
+        Authentication authentication = new UsernamePasswordAuthenticationToken(codeDto.getCode(), codeDto.getCode(), authorities);
         TokenInfo tokenInfo = jwtTokenProvider.generateToken(authentication);
         tokenInfo.setName((String) jsonObject.get("name"));
         tokenInfo.setMemberRole((String) jsonObject.get("type"));

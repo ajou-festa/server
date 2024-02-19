@@ -3,10 +3,10 @@ package com.ajoufesta.dto;
 import lombok.*;
 
 @Data
-@Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CodeDto {
+public class UserInfoDto {
     private String code;
+    private String memberRole;
 }

@@ -1,15 +1,37 @@
 package com.ajoufesta.security;
 
+import com.ajoufesta.domain.Show;
+import com.ajoufesta.dto.ShowDto;
+import com.ajoufesta.dto.UserInfoDto;
 import lombok.RequiredArgsConstructor;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 
 @RequiredArgsConstructor
 public class SecurityUtil {
+
+    public static UserInfoDto getCurrentMemberId() {
+        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication == null || authentication.getName() == null) {
+            throw new RuntimeException("No authentication information.");
+        }
+
+        UserInfoDto userInfoDto = new UserInfoDto();
+        userInfoDto.setCode(authentication.getName());
+        userInfoDto.setMemberRole(authentication.getAuthorities().stream().toList().get(0).toString().replaceAll("ROLE_", ""));
+        return userInfoDto;
+    }
+
     private static JSONArray readJsonFile(String filePath) {
         JSONParser jsonParser = new JSONParser();
         try (FileReader reader = new FileReader(filePath)) {
@@ -29,7 +51,6 @@ public class SecurityUtil {
                 if (jsonObject.get("code").equals(code)) {
                     return jsonObject;
                 }
-                System.out.println("notif "+ jsonObject + code);
             }
         }
         return null;

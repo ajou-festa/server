@@ -1,5 +1,7 @@
 package com.ajoufesta.service;
 
+import com.ajoufesta.dto.UserInfoDto;
+import com.ajoufesta.security.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,8 +43,11 @@ public class BoothService {
     }
 
     public BoothDto updateBoothInfo(String id, BoothDto boothDto) {
-        DayBoothes dayBoothes = boothDao.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("잘못된 ID: " + id));
+        UserInfoDto userInfoDto = SecurityUtil.getCurrentMemberId();
+        System.out.println("uid " + userInfoDto);
+
+        DayBoothes dayBoothes = boothDao.findById(userInfoDto.getCode())
+                .orElseThrow(() -> new IllegalArgumentException("잘못된 ID: " + userInfoDto.getCode()));
 
         dayBoothes.getBoothes().stream()
                 .filter(booth -> booth.getBoothId().equals(boothDto.getBoothId()))

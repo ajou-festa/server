@@ -1,4 +1,7 @@
 spring:
   data:
     mongodb:
-      uri: 
+      uri:
+
+jwt:
+  secret:

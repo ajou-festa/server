@@ -16,3 +16,4 @@ public class AuthController {
         return authService.getTokenInfo(codeDto);
     }
 }
+

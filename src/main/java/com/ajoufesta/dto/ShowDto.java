@@ -1,6 +1,6 @@
 package com.ajoufesta.dto;
 
-import com.ajoufesta.domain.ShowStatus;
+import com.ajoufesta.enums.ShowStatus;
 
 import lombok.Builder;
 import lombok.Data;

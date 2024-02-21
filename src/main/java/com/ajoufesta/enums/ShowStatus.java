@@ -1,4 +1,4 @@
-package com.ajoufesta.domain;
+package com.ajoufesta.enums;
 
 public enum ShowStatus {
     SCHEDULED,

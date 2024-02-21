@@ -1,10 +1,7 @@
 package com.ajoufesta.controller;
 
-import com.ajoufesta.dto.AddBoothesDto;
 import com.ajoufesta.dto.AddClubsDto;
-import com.ajoufesta.dto.BoothDto;
 import com.ajoufesta.dto.ClubDto;
-import com.ajoufesta.service.BoothService;
 import com.ajoufesta.service.ClubService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

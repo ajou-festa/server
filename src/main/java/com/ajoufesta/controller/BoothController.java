@@ -1,11 +1,11 @@
 package com.ajoufesta.controller;
 
+import com.ajoufesta.dto.AddBoothesDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import com.ajoufesta.service.BoothService;
 import org.springframework.http.ResponseEntity;
-import com.ajoufesta.dto.AddBoothesDto;
 import com.ajoufesta.dto.BoothDto;
 
 import java.util.List;

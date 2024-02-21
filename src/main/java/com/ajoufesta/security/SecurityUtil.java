@@ -1,7 +1,5 @@
 package com.ajoufesta.security;
 
-import com.ajoufesta.domain.Show;
-import com.ajoufesta.dto.ShowDto;
 import com.ajoufesta.dto.UserInfoDto;
 import lombok.RequiredArgsConstructor;
 import org.json.simple.JSONArray;

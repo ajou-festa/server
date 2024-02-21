@@ -1,14 +1,13 @@
 package com.ajoufesta.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.ajoufesta.dao.ShowDao;
 import com.ajoufesta.domain.DayShows;
 import com.ajoufesta.domain.Show;
 import com.ajoufesta.dto.AddShowsDto;
 import com.ajoufesta.dto.ShowDto;
 import com.ajoufesta.dto.UpdateShowTurnDto;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
@@ -32,7 +31,7 @@ public class ShowService {
         DayShows dayShows = showDao.findByDay(nowShow.getDay()).orElseThrow();
 
         dayShows.updateShowStatus(nowShow.getShowId());
-      
+
         return showDao.save(dayShows).getDay();
     }
 

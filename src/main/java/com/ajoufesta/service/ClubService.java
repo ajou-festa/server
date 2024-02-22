@@ -6,6 +6,8 @@ import com.ajoufesta.domain.Clubs;
 import com.ajoufesta.dto.*;
 import com.ajoufesta.security.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -24,7 +26,7 @@ public class ClubService {
         }
         return "success";
     }
-
+    @CachePut(value = "clubs", key = "#result.day")
     public Clubs saveClubs(Clubs clubs) {
         return clubDao.save(clubs);
     }

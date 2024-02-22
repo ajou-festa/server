@@ -31,7 +31,8 @@ dependencies {
     implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
 
     implementation 'org.springframework.boot:spring-boot-starter-security'
-
+    implementation 'org.springframework.boot:spring-boot-starter-cache'
+    
     testImplementation 'org.springframework.boot:spring-boot-starter-test:3.2.1'
 	testImplementation 'io.projectreactor:reactor-test'
 }

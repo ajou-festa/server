@@ -9,7 +9,6 @@ import com.ajoufesta.dto.UpdateShowTurnDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -54,10 +53,10 @@ public class ShowService {
     private ShowDto convertToShowDto(Show show) {
         return ShowDto.builder()
                 .id(show.getId())
-                .showName(show.getShowName())
                 .teamName(show.getTeamName())
+                .startTime(show.getStartTime())
+                .endTime(show.getEndTime())
                 .status(show.getStatus())
-                .startTime(show.getStartTime().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME))
                 .build();
     }
 

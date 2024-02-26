@@ -17,4 +17,5 @@ public class Club {
     private String link;
     private LinkType linkIconId;
     private String section;
+    private String phoneNumber;
 }

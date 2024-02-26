@@ -12,6 +12,7 @@ public class ClubDto {
     private String clubDetail;
     private String[] clubActivities;
     private String link;
+    private String phoneNumber;
     private LinkType linkIconId;
     private String section;
 }

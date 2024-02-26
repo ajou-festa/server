@@ -6,7 +6,6 @@ import com.ajoufesta.domain.Clubs;
 import com.ajoufesta.dto.*;
 import com.ajoufesta.security.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.stereotype.Service;
 
@@ -58,6 +57,7 @@ public class ClubService {
                     club.setLink(clubDto.getLink());
                     club.setLinkIconId(clubDto.getLinkIconId());
                     club.setSection(clubDto.getSection());
+                    club.setPhoneNumber(clubDto.getPhoneNumber());
                 });
         clubDao.save(clubs);
 
@@ -89,6 +89,7 @@ public class ClubService {
                 .link(club.getLink())
                 .linkIconId(club.getLinkIconId())
                 .section(club.getSection())
+                .phoneNumber(club.getPhoneNumber())
                 .build();
     }
 

@@ -5,13 +5,13 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.List;
 
 @Data
-@Document(collection = "clubs")
+@Document(collection = "rankings")
 @Builder()
-public class Clubs {
+public class Ranking {
     @Id
-    private Integer day;
-    private List<Club> clubs;
+    private final Integer studentId;
+    private Integer level;
+    private String name;
 }

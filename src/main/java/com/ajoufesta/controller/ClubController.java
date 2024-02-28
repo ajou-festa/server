@@ -22,9 +22,8 @@ public class ClubController {
     }
 
     @PostMapping("/admin")
-    public ResponseEntity<String> addBoothes(@RequestBody AddClubsDto addClubsDto) {
-        System.out.println(addClubsDto);
-        return ResponseEntity.ok(clubService.addBoothes(addClubsDto));
+    public ResponseEntity<String> addClubs(@RequestBody AddClubsDto addClubsDto) {
+        return ResponseEntity.ok(clubService.addClubs(addClubsDto));
     }
 
     @PostMapping("/manager/{boothId}/info")

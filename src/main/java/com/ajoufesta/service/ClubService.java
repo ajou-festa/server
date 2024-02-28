@@ -6,7 +6,6 @@ import com.ajoufesta.domain.Clubs;
 import com.ajoufesta.dto.*;
 import com.ajoufesta.security.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CachePut;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -19,17 +18,18 @@ public class ClubService {
     @Autowired
     private ClubDao clubDao;
 
-    public String addBoothes(AddClubsDto addClubsDto) {
+    
+    public String addClubs(AddClubsDto addClubsDto) {
         for(Clubs clubs : addClubsDto.getClubsByDay()){
-            clubDao.save(clubs);
+            saveClubs(clubs);
         }
         return "success";
     }
-    @CachePut(value = "clubs", key = "#result.day")
-    public Clubs saveClubs(Clubs clubs) {
+
+    private Clubs saveClubs(Clubs clubs) {
         return clubDao.save(clubs);
     }
-
+    
     public List<ClubDto> getClubsByDayAndSection(Integer day, String section) {
         Optional<Clubs> optionalClubs;
         if (day == null) {

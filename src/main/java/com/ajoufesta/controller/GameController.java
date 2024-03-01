@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/v1/game")
+@CrossOrigin(origins = {"https://ajoufesta.com","https://manager.ajoufesta.com"})
 public class GameController {
     @Autowired
     private GameService gameService;

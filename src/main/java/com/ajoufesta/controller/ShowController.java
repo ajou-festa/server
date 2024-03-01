@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/v1/shows")
+@CrossOrigin(origins = "https://ajoufesta.com")
 public class ShowController {
     @Autowired
     private ShowService showService;

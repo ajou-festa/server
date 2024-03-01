@@ -26,9 +26,4 @@ public class ClubController {
         return ResponseEntity.ok(clubService.addClubs(addClubsDto));
     }
 
-    @PostMapping("/manager/{boothId}/info")
-    public ResponseEntity<ClubDto> updateBooth(@PathVariable String clubId, @RequestBody ClubDto clubDto) {
-        return ResponseEntity.ok(clubService.updateClubInfo(clubId, clubDto));
-    }
-
 }

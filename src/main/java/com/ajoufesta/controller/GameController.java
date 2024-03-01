@@ -1,11 +1,8 @@
 package com.ajoufesta.controller;
 
 import com.ajoufesta.domain.Ranking;
-import com.ajoufesta.dto.AddClubsDto;
 import com.ajoufesta.dto.AddRankingDto;
-import com.ajoufesta.dto.ClubDto;
 import com.ajoufesta.dto.RankingDto;
-import com.ajoufesta.service.ClubService;
 import com.ajoufesta.service.GameService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +21,6 @@ public class GameController {
     public ResponseEntity<List<RankingDto>> getDayClubsByDay() {
         return ResponseEntity.ok(gameService.getRanking());
     }
-
-    // @PostMapping("/admin")
-    // public ResponseEntity<String> addClubs(@RequestBody AddClubsDto addClubsDto) {
-    //     return ResponseEntity.ok(gameService.addClubs(addClubsDto));
-    // }
 
     @PostMapping("/manager")
     public ResponseEntity<String> updateBooth(@RequestBody AddRankingDto addRankingDto) {

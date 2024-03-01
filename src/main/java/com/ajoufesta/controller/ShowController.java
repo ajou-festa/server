@@ -1,5 +1,4 @@
 package com.ajoufesta.controller;
-import com.ajoufesta.dto.UpdateShowTurnDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.ajoufesta.service.ShowService;
@@ -18,11 +17,6 @@ public class ShowController {
     @GetMapping
     public ResponseEntity<List<ShowDto>> getDayShowsByDay(@RequestParam(required = false) Integer day) {
         return ResponseEntity.ok(showService.getDayShowsByDay(day));
-    }
-
-    @PostMapping("/manager/show-turn")
-    public ResponseEntity<Integer> updateShowTurn(@RequestBody UpdateShowTurnDto nowShow) {
-        return ResponseEntity.ok(showService.updateShowTurn(nowShow));
     }
 
     @PostMapping("/admin")

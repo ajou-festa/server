@@ -4,7 +4,6 @@ import com.ajoufesta.dao.ClubDao;
 import com.ajoufesta.domain.Club;
 import com.ajoufesta.domain.Clubs;
 import com.ajoufesta.dto.*;
-import com.ajoufesta.security.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,30 +37,6 @@ public class ClubService {
             optionalClubs = clubDao.findByDay(day);
         }
         return getClubsFromDayClubsBySection(optionalClubs, section);
-    }
-
-    public ClubDto updateClubInfo(String id, ClubDto clubDto) {
-        UserInfoDto userInfoDto = SecurityUtil.getCurrentMemberId();
-        System.out.println("uid " + userInfoDto);
-
-        Clubs clubs = clubDao.findById(userInfoDto.getCode())
-                .orElseThrow(() -> new IllegalArgumentException("잘못된 ID: " + userInfoDto.getCode()));
-
-        clubs.getClubs().stream()
-                .filter(club -> club.getClubId().equals(clubDto.getClubId()))
-                .findFirst()
-                .ifPresent(club -> {
-                    club.setClubName(clubDto.getClubName());
-                    club.setClubDetail(clubDto.getClubDetail());
-                    club.setClubActivities(clubDto.getClubActivities());
-                    club.setLink(clubDto.getLink());
-                    club.setLinkIconId(clubDto.getLinkIconId());
-                    club.setSection(clubDto.getSection());
-                    club.setPhoneNumber(clubDto.getPhoneNumber());
-                });
-        clubDao.save(clubs);
-
-        return clubDto;
     }
 
     private List<ClubDto> getClubsFromDayClubsBySection(Optional<Clubs> optionalClubs, String section) {

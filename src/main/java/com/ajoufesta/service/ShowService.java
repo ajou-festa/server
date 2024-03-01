@@ -5,7 +5,6 @@ import com.ajoufesta.domain.DayShows;
 import com.ajoufesta.domain.Show;
 import com.ajoufesta.dto.AddShowsDto;
 import com.ajoufesta.dto.ShowDto;
-import com.ajoufesta.dto.UpdateShowTurnDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,14 +23,6 @@ public class ShowService {
             showDao.save(dayShow);
         }
         return "success";
-    }
-
-    public Integer updateShowTurn(UpdateShowTurnDto nowShow){
-        DayShows dayShows = showDao.findByDay(nowShow.getDay()).orElseThrow();
-
-        dayShows.updateShowStatus(nowShow.getShowId());
-
-        return showDao.save(dayShows).getDay();
     }
 
     public List<ShowDto> getDayShowsByDay(Integer day) {

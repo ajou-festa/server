@@ -8,4 +8,5 @@ public class AddRankingDto {
     private Integer level;
     private String name;
     private String major;
+    private String password;
 }

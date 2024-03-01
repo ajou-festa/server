@@ -55,6 +55,9 @@ public class GameService {
     }
 
     public String addRanking(AddRankingDto addRankingDto){
+        if(!addRankingDto.getPassword().equals("donghwa0302!A") ){
+            return "not authentication";
+        }
         Ranking ranking = Ranking.builder().studentId(addRankingDto.getStudentId()).name(addRankingDto.getName()).level(addRankingDto.getLevel()).build();
         rankingDao.save(ranking);
         return "success";

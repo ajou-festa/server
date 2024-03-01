@@ -23,7 +23,7 @@ public class GameController {
         return ResponseEntity.ok(gameService.getRanking());
     }
 
-    @PostMapping("/manager")
+    @PostMapping("/manager/add")
     public ResponseEntity<String> updateBooth(@RequestBody AddRankingDto addRankingDto) {
         return ResponseEntity.ok(gameService.addRanking(addRankingDto));
     }

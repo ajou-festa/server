@@ -1,11 +1,15 @@
 package com.ajoufesta.dto;
 
+import lombok.Builder;
 import lombok.Data;
+import org.springframework.data.annotation.Id;
+
 
 @Data
-public class AddRankingDto {
+@Builder()
+public class RankingDto {
+    @Id
     private Integer studentId;
     private Integer level;
     private String name;
-    private String major;
 }

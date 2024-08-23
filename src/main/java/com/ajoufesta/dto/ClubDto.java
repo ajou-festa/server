@@ -9,6 +9,7 @@ import lombok.Data;
 public class ClubDto {
     private Long clubId;
     private String clubName;
+    private String clubRepresentative;
     private String clubDetail;
     private String[] clubActivities;
     private String link;

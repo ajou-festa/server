@@ -3,7 +3,6 @@ package com.ajoufesta.dao;
 import com.ajoufesta.domain.Clubs;
 import com.mongodb.lang.NonNull;
 
-
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.mongodb.repository.MongoRepository;

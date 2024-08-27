@@ -1,10 +1,13 @@
 package com.ajoufesta.service;
 
-import com.ajoufesta.dao.ClubDao;
+import com.ajoufesta.dao.ClubsDao;
 import com.ajoufesta.domain.Club;
 import com.ajoufesta.domain.Clubs;
 import com.ajoufesta.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -15,9 +18,11 @@ import java.util.stream.Collectors;
 @Service
 public class ClubService {
     @Autowired
-    private ClubDao clubDao;
+    private ClubsDao clubsDao;
 
-    
+    @Autowired
+    private MongoTemplate mongoTemplate;
+
     public String addClubs(AddClubsDto addClubsDto) {
         for(Clubs clubs : addClubsDto.getClubsByDay()){
             saveClubs(clubs);
@@ -26,15 +31,15 @@ public class ClubService {
     }
 
     private Clubs saveClubs(Clubs clubs) {
-        return clubDao.save(clubs);
+        return clubsDao.save(clubs);
     }
     
     public List<ClubDto> getClubsByDayAndSection(Integer day, String section) {
         Optional<Clubs> optionalClubs;
         if (day == null) {
-            optionalClubs = clubDao.findByDay(1);
+            optionalClubs = clubsDao.findByDay(1);
         } else {
-            optionalClubs = clubDao.findByDay(day);
+            optionalClubs = clubsDao.findByDay(day);
         }
         return getClubsFromDayClubsBySection(optionalClubs, section);
     }
@@ -48,6 +53,22 @@ public class ClubService {
         return this.convertToBoothDtoList(clubs);
     }
 
+    public Optional<ClubDto> findClubById(Long clubId) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("clubs._id").is(clubId));
+
+        Clubs result = mongoTemplate.findOne(query, Clubs.class);
+
+        if (result != null) {
+            return result.getClubs().stream()
+                    .filter(club -> club.getClubId().equals(clubId))
+                    .map(this::convertToClubDto)
+                    .findFirst();
+        }
+
+        return Optional.empty();
+    }
+
     private List<Club> filterBySection(List<Club> clubs, String section) {
         return clubs.stream()
                 .filter(club -> club.getSection().equals(section))
@@ -59,6 +80,7 @@ public class ClubService {
         return ClubDto.builder()
                 .clubId(club.getClubId())
                 .clubName(club.getClubName())
+                .clubRepresentative(club.getClubRepresentative())
                 .clubDetail(club.getClubDetail())
                 .clubActivities(club.getClubActivities())
                 .link(club.getLink())

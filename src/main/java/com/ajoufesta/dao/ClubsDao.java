@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.Optional;
 
-public interface ClubDao extends MongoRepository<Clubs, String> {
+public interface ClubsDao extends MongoRepository<Clubs, String> {
     @Cacheable(value = "clubs", key = "#day")
     Optional<Clubs> findByDay(Integer day);
 

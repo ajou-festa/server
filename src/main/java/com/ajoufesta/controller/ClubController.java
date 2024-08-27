@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/v1/clubs")
@@ -20,6 +21,13 @@ public class ClubController {
     public ResponseEntity<List<ClubDto>> getDayClubsByDay(@RequestParam(required = false) Integer day,
                                                           @RequestParam(required = false) String section) {
         return ResponseEntity.ok(clubService.getClubsByDayAndSection(day, section));
+    }
+
+    @GetMapping("/id")
+    public ResponseEntity<ClubDto> getClubById(@RequestParam Long id) {
+        Optional<ClubDto> club = clubService.findClubById(id);
+        return club.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping("/admin")

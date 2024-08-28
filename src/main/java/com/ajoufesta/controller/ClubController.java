@@ -23,6 +23,11 @@ public class ClubController {
         return ResponseEntity.ok(clubService.getClubsByDayAndSection(day, section));
     }
 
+    @GetMapping("/all")
+    public ResponseEntity<List<ClubDto>> getAllClubs() {
+        return ResponseEntity.ok(clubService.getAllClubs());
+    }
+
     @GetMapping("/id")
     public ResponseEntity<ClubDto> getClubById(@RequestParam Long id) {
         Optional<ClubDto> club = clubService.findClubById(id);

@@ -53,6 +53,18 @@ public class ClubService {
         return this.convertToBoothDtoList(clubs);
     }
 
+    public List<ClubDto> getAllClubs() {
+        return getAllClubsForDay(1);
+    }
+
+    public List<ClubDto> getAllClubsForDay(int day) {
+        Optional<Clubs> optionalClubs = clubsDao.findByDay(day);
+        return optionalClubs
+                .map(Clubs::getClubs)
+                .map(this::convertToBoothDtoList)
+                .orElse(Collections.emptyList());
+    }
+
     public Optional<ClubDto> findClubById(Long clubId) {
         Query query = new Query();
         query.addCriteria(Criteria.where("clubs._id").is(clubId));

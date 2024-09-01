@@ -126,9 +126,13 @@
       <button type="submit">추가</button>
     </form>
 
+    <h2>투표 현황</h2>
+    <div id="vote-rangkings"></div>
+
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         const rankingsDiv = document.getElementById("rankings");
+        const voteRankings = document.getElementById("vote-rangkings");
         const editStudentForm = document.getElementById("editStudentForm");
         const editStudentIdInput = document.getElementById("editStudentId");
         const editLevelInput = document.getElementById("editLevel");
@@ -164,6 +168,46 @@
 
                 studentDiv.appendChild(editButton);
                 rankingsDiv.appendChild(studentDiv);
+              });
+            })
+            .catch((error) => console.error("Error fetching rankings:", error));
+        }
+        function fetchAndDisplayVoteRankings() {
+          fetch("https://api.ajoufesta.com/v1/vote/statistics")
+            .then((response) => response.json())
+            .then((data) => {
+              // Clear previous content
+              voteRankings.innerHTML = "";
+
+              // Sort data by count in descending order
+              data.sort((a, b) => b.count - a.count);
+
+              // Mapping selectedId to specific image paths
+              const imageMapper = {
+                1: "https://velog.velcdn.com/images/donggni0712/post/7e76b56d-60e3-4462-9fbe-3e47b6a0f42d/image.png",
+                2: "https://velog.velcdn.com/images/donggni0712/post/fdfa0d9c-8736-4bdd-9f50-72efe3d79dda/image.png",
+                3: "https://velog.velcdn.com/images/donggni0712/post/65a361b1-b244-48f4-ae8b-b7cbe1f206b3/image.png",
+                4: "https://velog.velcdn.com/images/donggni0712/post/c712c8c6-a6fe-471b-9eeb-9b77ba771a3d/image.png",
+                5: "https://velog.velcdn.com/images/donggni0712/post/18e11f4a-8b6d-4c4c-801f-5f26cbe9cf2a/image.png",
+                6: "https://velog.velcdn.com/images/donggni0712/post/bb038491-81f6-4c55-8025-b66e48043fe9/image.png",
+                7: "https://velog.velcdn.com/images/donggni0712/post/e29aaf78-fc62-4ced-b4cb-77d6e26c3ed3/image.png",
+              };
+
+              // Loop through sorted data and create elements
+              data.forEach((picture) => {
+                if (picture.selectedId > 0 && selectedId < 8) {
+                  const pictureDiv = document.createElement("div");
+                  pictureDiv.classList.add("studentEdit");
+                  // Set the inner HTML with the corresponding image and vote count
+                  pictureDiv.innerHTML = `
+          <img src="${imageMapper[picture.selectedId]}" alt="Image ${
+                    picture.selectedId
+                  }">
+          <a>투표 수: ${picture.count}</a>
+        `;
+                  // Append the element to voteRankings
+                  voteRankings.appendChild(pictureDiv);
+                }
               });
             })
             .catch((error) => console.error("Error fetching rankings:", error));

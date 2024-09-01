@@ -89,6 +89,24 @@
         justify-content: space-between; /* Distributes the images evenly */
         gap: 10px; /* Space between images */
       }
+      .picture {
+        flex: 1 1 calc(25% - 10px); /* Each image box takes 25% of the width */
+        box-sizing: border-box;
+        text-align: center;
+        margin-bottom: 10px;
+      }
+
+      .picture img {
+        width: 100px; /* Adjust the width of the images */
+        height: auto; /* Maintain aspect ratio */
+        border-radius: 5px;
+      }
+
+      .picture a {
+        display: block;
+        margin-top: 5px;
+        font-size: 14px;
+      }
 
       @media (max-width: 600px) {
         .studentEdit {
@@ -205,7 +223,7 @@
                 // Ensure the selectedId is valid and within the mapper range
                 if (picture.selectedId > 0 && picture.selectedId < 8) {
                   const pictureDiv = document.createElement("div");
-                  pictureDiv.classList.add("studentEdit");
+                  pictureDiv.classList.add("picture");
                   // Set the inner HTML with the corresponding image and vote count
                   pictureDiv.innerHTML = `
             <img src="${imageMapper[picture.selectedId]}" alt="Image ${

@@ -83,6 +83,13 @@
         align-self: center;
       }
 
+      #voteRankings {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between; /* Distributes the images evenly */
+        gap: 10px; /* Space between images */
+      }
+
       @media (max-width: 600px) {
         .studentEdit {
           font-size: 14px;
@@ -127,12 +134,12 @@
     </form>
 
     <h2>투표 현황</h2>
-    <div id="vote-rangkings"></div>
+    <div id="voteRangkings"></div>
 
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         const rankingsDiv = document.getElementById("rankings");
-        const voteRankings = document.getElementById("vote-rangkings");
+        const voteRankings = document.getElementById("voteRangkings");
         const editStudentForm = document.getElementById("editStudentForm");
         const editStudentIdInput = document.getElementById("editStudentId");
         const editLevelInput = document.getElementById("editLevel");
@@ -195,16 +202,17 @@
 
               // Loop through sorted data and create elements
               data.forEach((picture) => {
-                if (picture.selectedId > 0 && selectedId < 8) {
+                // Ensure the selectedId is valid and within the mapper range
+                if (picture.selectedId > 0 && picture.selectedId < 8) {
                   const pictureDiv = document.createElement("div");
                   pictureDiv.classList.add("studentEdit");
                   // Set the inner HTML with the corresponding image and vote count
                   pictureDiv.innerHTML = `
-          <img src="${imageMapper[picture.selectedId]}" alt="Image ${
+            <img src="${imageMapper[picture.selectedId]}" alt="Image ${
                     picture.selectedId
                   }">
-          <a>투표 수: ${picture.count}</a>
-        `;
+            <a>투표 수: ${picture.count}</a>
+          `;
                   // Append the element to voteRankings
                   voteRankings.appendChild(pictureDiv);
                 }
@@ -251,6 +259,7 @@
         });
 
         fetchAndDisplayRankings();
+        fetchAndDisplayVoteRankings();
 
         const addStudentForm = document.getElementById("addStudentForm");
         addStudentForm.addEventListener("submit", function (event) {
